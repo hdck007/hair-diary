@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FixedSizeGrid as Grid } from 'react-window';
 import { useWindowSize } from '../hooks/useWindow';
-import InfiniteLoader from 'react-window-infinite-loader';
 import { AiFillStar } from 'react-icons/ai';
 import EventWrapper from './EventWarpper';
 import Modal from 'react-modal';
@@ -12,21 +11,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Cell from './Cell';
 
-const Seconds = 86400;
-const Month = [
-	'Jan',
-	'Feb',
-	'Mar',
-	'Apr',
-	'May',
-	'Jun',
-	'Jul',
-	'Aug',
-	'Sep',
-	'Oct',
-	'Nov',
-	'Dec',
-];
 const MonthsFullForm = [
 	'January',
 	'February',
@@ -57,13 +41,6 @@ const DatesWrapper = styled.div`
 
 const CardRatingWrapper = styled.div`
 	font-size: 16px;
-`;
-
-const RatingWrapper = styled.div`
-	font-size: 12px;
-	@media (max-width: 700px) {
-		font-size: 8px;
-	}
 `;
 
 const CardWrapper = styled.div`
@@ -136,13 +113,12 @@ export default function CalendarComponent({
 	setCurrentMonth,
 	currentMonth,
 }) {
-	const [width, height] = useWindowSize();
+	const [width] = useWindowSize();
 	const gridRef = useRef(null);
 	const [posts, setPosts] = useState([]);
 	const [dateArray, setDateArray] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentModalIndex, setCurrentModalIndex] = useState(0);
-	const [initialSlide, setInitialSlide] = useState(0);
 	const sliderRef = useRef(null);
 	let settings = {
 		className: 'center',

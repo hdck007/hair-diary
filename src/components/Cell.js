@@ -105,6 +105,7 @@ export default function Cell({
 			setCurrentYear(now.getFullYear());
 		}
 
+		// eslint-disable-next-line array-callback-return
 		let filteredArray = dateArray.filter((date, index) => {
 			if (
 				now.getDate() === date.getDate() &&
@@ -119,6 +120,7 @@ export default function Cell({
 		if (filteredArray.length) {
 			setDisplay(Boolean(filteredArray.length));
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentMonth]);
 
 	function handleClick(e) {

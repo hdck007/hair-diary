@@ -44,6 +44,7 @@ export default function EventWrapper({ event }) {
 				break;
 			}
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
