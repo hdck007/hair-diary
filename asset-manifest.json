@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/hair-diary/static/css/main.606acd59.chunk.css",
+    "main.js": "/hair-diary/static/js/main.58bfceed.chunk.js",
+    "main.js.map": "/hair-diary/static/js/main.58bfceed.chunk.js.map",
+    "runtime-main.js": "/hair-diary/static/js/runtime-main.d9e380d3.js",
+    "runtime-main.js.map": "/hair-diary/static/js/runtime-main.d9e380d3.js.map",
+    "static/css/2.59bca752.chunk.css": "/hair-diary/static/css/2.59bca752.chunk.css",
+    "static/js/2.4817b362.chunk.js": "/hair-diary/static/js/2.4817b362.chunk.js",
+    "static/js/2.4817b362.chunk.js.map": "/hair-diary/static/js/2.4817b362.chunk.js.map",
+    "static/js/3.6f044bfe.chunk.js": "/hair-diary/static/js/3.6f044bfe.chunk.js",
+    "static/js/3.6f044bfe.chunk.js.map": "/hair-diary/static/js/3.6f044bfe.chunk.js.map",
+    "index.html": "/hair-diary/index.html",
+    "static/css/2.59bca752.chunk.css.map": "/hair-diary/static/css/2.59bca752.chunk.css.map",
+    "static/css/main.606acd59.chunk.css.map": "/hair-diary/static/css/main.606acd59.chunk.css.map",
+    "static/js/2.4817b362.chunk.js.LICENSE.txt": "/hair-diary/static/js/2.4817b362.chunk.js.LICENSE.txt",
+    "static/media/slick-theme.css": "/hair-diary/static/media/slick.c94f7671.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d9e380d3.js",
+    "static/css/2.59bca752.chunk.css",
+    "static/js/2.4817b362.chunk.js",
+    "static/css/main.606acd59.chunk.css",
+    "static/js/main.58bfceed.chunk.js"
+  ]
+}
