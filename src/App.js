@@ -1,41 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CalendarComponent from './components/CalendarComponent';
+import { MdAdd } from 'react-icons/md';
+import HeaderComponent from './components/HeaderComponent';
+import BottomNavComponent from './components/BottomNavComponent';
 
-const Header = styled.header`
-	height: 6vh;
-	box-sizing: border-box;
+const FloatButton = styled.button`
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	text-align: center;
+	position: absolute;
+	bottom: 80px;
+	right: 20px;
+	border: none;
+	background: #66d8fd;
+	font-size: 40px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	font-size: 28px;
-	font-weight: 700;
-	padding: 5px;
-	background: grey;
-	@media (max-width: 700px) {
-		font-size: 18px;
-	}
+	color: white !important;
 `;
-
-const BottomNav = styled.div`
-	height: 6vh;
-	width: 100%;
-`;
-
-const Month = [
-	'Jan',
-	'Feb',
-	'Mar',
-	'Apr',
-	'May',
-	'Jun',
-	'Jul',
-	'Aug',
-	'Sep',
-	'Oct',
-	'Nov',
-	'Dec',
-];
 
 function App() {
 	const [currentMonth, setCurrentMonth] = useState(0);
@@ -43,16 +27,16 @@ function App() {
 
 	return (
 		<div>
-			<Header>
-				My Hair Diary
-				<span>{`${Month[currentMonth]} ${currentYear}`}</span>
-			</Header>
+			<HeaderComponent currentMonth={currentMonth} currentYear={currentYear} />
 			<CalendarComponent
 				currentMonth={currentMonth}
 				setCurrentMonth={setCurrentMonth}
 				setCurrentYear={setCurrentYear}
 			/>
-			<BottomNav>Nav</BottomNav>
+			<BottomNavComponent />
+			<FloatButton>
+				<MdAdd />
+			</FloatButton>
 		</div>
 	);
 }

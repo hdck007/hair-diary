@@ -2,33 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FixedSizeGrid as Grid } from 'react-window';
 import { useWindowSize } from '../hooks/useWindow';
-import { AiFillStar } from 'react-icons/ai';
-import EventWrapper from './EventWarpper';
-import Modal from 'react-modal';
-import { CgCloseO } from 'react-icons/cg';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import Cell from './Cell';
-
-const MonthsFullForm = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December',
-];
+import ModalComponent from './ModalComponent';
+import { WeekDays } from '../utils/constants';
 
 const CalendarWrapper = styled.div`
 	width: 100%;
-	height: 88vh;
+	height: 83vh;
 `;
 
 const DatesWrapper = styled.div`
@@ -39,74 +19,21 @@ const DatesWrapper = styled.div`
 	overflow-x: hidden;
 `;
 
-const CardRatingWrapper = styled.div`
-	font-size: 16px;
-`;
-
-const CardWrapper = styled.div`
-	width: 95%;
-	height: 450px;
-	background: white;
-	border-radius: 5px;
-`;
-
-const CardImageWrapper = styled.img`
-	border-radius: 5px 5px 0 0;
-	width: 100%;
-	height: 63%;
-`;
-
-const CardMarginWrapper = styled.div`
-	width: 375px;
-`;
-
-const DetailsWrapper = styled.div`
-	box-sizing: border-box;
-	width: 95%;
-	margin: auto;
-	padding: 5px;
-	position: relative;
-	// background: red;
-`;
-
-const LegendDetails = styled.div`
-	width: 100%;
+const HeaderRow = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	align-items: center;
+	width: 98.75%;
 `;
 
-const DescripWrapper = styled.div``;
-
-const ViewPostButton = styled.div`
-	width: 100%;
-	margin: auto;
-	padding-top: 3px;
-	height: 25px;
-	border-top: 1px solid black;
-	text-align: center;
-	position: absolute;
-	bottom: -11px;
-	font-size: 20px;
-	left: 0;
+const HeaderCell = styled.div`
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 0.2px solid rgb(230, 230, 230);
+	font-weight: bold;
 `;
-
-const customStyles = {
-	content: {
-		top: 0,
-		left: 0,
-		right: 'auto',
-		bottom: 'auto',
-		backgroundColor: 'transparent',
-		border: 'none',
-		width: '100%',
-		height: '100%',
-	},
-	overlay: {
-		backgroundColor: 'rgb(0, 0, 0)',
-	},
-};
-
-Modal.setAppElement('#root');
 
 export default function CalendarComponent({
 	setCurrentYear,
@@ -119,20 +46,6 @@ export default function CalendarComponent({
 	const [dateArray, setDateArray] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentModalIndex, setCurrentModalIndex] = useState(0);
-	const sliderRef = useRef(null);
-	let settings = {
-		className: 'center',
-		centerMode: true,
-		centerPadding: '60px',
-		slidesToShow: width > 800 ? 3 : 1,
-		speed: 500,
-		arrows: width > 800 ? true : false,
-		infinite: false,
-		focusOnSelect: true,
-	};
-
-	const truncate = (input) =>
-		input.length > 70 ? `${input.substring(0, 70)}...` : input;
 
 	useEffect(() => {
 		fetch('http://devapi.quinn.care/graph', {
@@ -184,7 +97,6 @@ export default function CalendarComponent({
 			.then((result) => result.json())
 			.then((data) => {
 				setPosts(data.responseobjects[0].posts);
-				console.log(data.responseobjects[0].posts);
 				let createdArray = data.responseobjects[0].posts.map(
 					(data) => new Date(data.calendardatetime)
 				);
@@ -208,101 +120,28 @@ export default function CalendarComponent({
 		});
 	}, []);
 
-	function AfterOpenModal() {
-		sliderRef.current.slickGoTo(currentModalIndex, true);
-	}
-
-	function CloseModal() {
-		setIsOpen((prev) => !prev);
-	}
-
 	return (
 		<>
-			<Modal
+			<ModalComponent
+				width={width}
 				isOpen={isOpen}
-				onAfterOpen={AfterOpenModal}
-				onRequestClose={CloseModal}
-				style={customStyles}
-				contentLabel='Example Modal'
-			>
-				<button
-					style={{
-						border: 'none',
-						background: 'transparent',
-						position: 'absolute',
-						top: '10px',
-						right: '45px',
-						fontSize: '40px',
-					}}
-					onClick={CloseModal}
-				>
-					<CgCloseO color={'#FFFFFF'} />
-				</button>
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<div
-					style={{
-						width: width > 800 ? '1000px' : '350px',
-						margin: 'auto',
-						height: '590px',
-						overflow: 'hidden',
-					}}
-				>
-					<Slider {...settings} ref={sliderRef}>
-						{posts &&
-							posts.map((post, index) => (
-								<CardMarginWrapper>
-									<CardWrapper>
-										<CardImageWrapper src={post.media[0].mediaurl} />
-										<DetailsWrapper>
-											<LegendDetails>
-												<div>
-													{post.typeofday.map((element) => (
-														<>
-															<EventWrapper event={element} />
-															&nbsp;
-														</>
-													))}
-												</div>
-												<CardRatingWrapper>
-													{[...new Array(5)].map((elm, index) => {
-														if (index < post.rating) {
-															return <AiFillStar color={'#9DD0EB'} />;
-														} else {
-															return <AiFillStar color={'#D2D4D8'} />;
-														}
-													})}
-												</CardRatingWrapper>
-											</LegendDetails>
-											<DescripWrapper>
-												<h3
-													style={{
-														height: '10px',
-													}}
-												>
-													{dateArray &&
-														dateArray[index] &&
-														dateArray[index].getDate()}{' '}
-													{dateArray &&
-														dateArray[index] &&
-														MonthsFullForm[dateArray[index].getMonth()]}
-												</h3>
-												{truncate(post.text)}
-											</DescripWrapper>
-											<br />
-											<ViewPostButton>View Full Post</ViewPostButton>
-										</DetailsWrapper>
-									</CardWrapper>
-								</CardMarginWrapper>
-							))}
-					</Slider>
-				</div>
-			</Modal>
+				setIsOpen={setIsOpen}
+				currentModalIndex={currentModalIndex}
+				posts={posts}
+				dateArray={dateArray}
+			/>
 			<CalendarWrapper>
+				<HeaderRow>
+					{WeekDays.map((day) => (
+						<HeaderCell
+							style={{
+								height: '5vh',
+							}}
+						>
+							{day}
+						</HeaderCell>
+					))}
+				</HeaderRow>
 				<DatesWrapper>
 					<Grid
 						useIsScrolling
@@ -310,7 +149,7 @@ export default function CalendarComponent({
 						className='gridWrapper'
 						columnCount={7}
 						columnWidth={width / 7.1}
-						height={630}
+						height={600}
 						rowCount={5220}
 						rowHeight={110}
 						width={width}
