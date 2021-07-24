@@ -150,7 +150,7 @@ export default function CalendarComponent({
 						columnCount={7}
 						columnWidth={width / 7.1}
 						height={600}
-						rowCount={5220}
+						rowCount={220000}
 						rowHeight={110}
 						width={width}
 						itemData={{
