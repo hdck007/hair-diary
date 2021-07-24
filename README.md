@@ -10,6 +10,6 @@
 1. `git clone https://github.com/hdck007/hair-diary.git`
 2. `yarn install`
 3. `yarn start`
-4. go to [http://localhost:3000/hair-diary](http://localhost:3000/hair-diar
+4. go to [http://localhost:3000/hair-diary](http://localhost:3000/hair-diary)
 
 _Note_: The production links don't work as expected because the API request is blocked.
